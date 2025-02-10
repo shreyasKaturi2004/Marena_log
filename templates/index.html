@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Marena Logger</title>
+    <link rel="stylesheet" href="static\marena-css.css">
+  </head>
+
+  <body>
+    <video class ='bg-video' autoplay loop muted>
+      <source src = "static\background_marena.mp4" type="video/mp4">
+    </video>
+  <div>
+      <div class = "Marena-Head">
+        <h>Marena Log</h>
+      </div>
+      <div class = 'marena-input'>
+        {% if entry_time_submitted %}
+            <p>Your time has already been submitted</p>
+        {% else %}
+        <div>
+          <p style="
+           font-family: 'Arial', sans-serif;  /* Clean, sans-serif font */
+  font-size: 1rem;                   /* Standard text size */
+  color: white;                    /* Dark gray for readability */
+  line-height: 1.6;                  /* Comfortable line spacing */
+                  
+  letter-spacing: 0.5px;             /* Slight letter spacing for clarity */
+  margin: 10px 0;                    /* Margin for spacing between paragraphs */
+  padding: 5px 0; 
+            ">Choose what time you will be going today</p>
+        </div>
+        <form action="/submit_time" method="POST">
+          
+          <div>
+            <input type="time" id="entry_time" name="entry_time" min="16:00" max="21:00" required>
+          </div>
+          <div>
+            <button class = "submit" type="submit">Submit</button>
+          </div>
+        </form>
+        {% endif %}
+        </div>
+       
+      <div class = 'boxes'>
+        <div class = 'Total-crowd'>
+          <p class = 'head-text'>Total crowd today</p>
+          {% if total_count is not none %}
+          <p class = 'lower-text'>{{total_count}}</p>
+          {% endif %}
+        </div>
+        <!--<div class ='total-at-time'>
+          <p>Total students at hour before you enter</p>
+          {%if one_hour is not none %}
+          <p>{{one_hour}}</p>
+          {% endif %}
+        </div>-->
+        <div class = 'best-time'>
+          <p class ='head-text'>Time with the least crowd</p>
+          {% if session.get('least_count') is not none %}
+          <p class = 'lower-text'>{{session['least_hour']}} : 00 With {{session['least_count']}} Students</p>
+          {% endif %}
+        </div>
+      </div>
+  </div>
+
+
+  </body>
+</html>
